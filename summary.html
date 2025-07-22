@@ -89,6 +89,9 @@
                 `;
                 tbody.appendChild(tr);
             });
+// 計算總金額
+const totalAmount = data.reduce((sum, item) => sum + item.itemTotal, 0);
+document.getElementById('total').textContent = `總金額: $${totalAmount}`;
         }
 
         function goBack() {
