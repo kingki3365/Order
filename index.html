@@ -297,4 +297,119 @@
                 </label>
                 
                 <!-- 加料選項 -->
-              
+                <div class="toppings">
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="粉角" data-price="5"> 粉角 +$5
+                    </label>
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="仙草凍" data-price="5"> 仙草凍 +$5
+                    </label>
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="椰果" data-price="5"> 椰果 +$5
+                    </label>
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="布丁" data-price="15"> 布丁 +$15
+                    </label>
+                </div>
+                
+                <button onclick="addToOrder(this)">加入訂單</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="order-summary">
+        <h2>訂單明細</h2>
+        <ul id="order-list"></ul>
+        <p>總金額: $<span id="total">0</span></p>
+        <button onclick="clearOrder()" style="background:#95a5a6;">清空訂單</button>
+        <button onclick="exportSummary()">輸出統計明細</button>
+    </div>
+
+    <script>
+        const orderList = document.getElementById('order-list');
+        const totalElement = document.getElementById('total');
+        let total = 0;
+        let orderItems = [];
+
+        function addToOrder(btn) {
+            const item = btn.closest('.item');
+            const name = item.dataset.name;
+            const size = item.querySelector('.size').value;
+            const sweetness = item.querySelector('.sweetness').value;
+            const ice = item.querySelector('.ice').value;
+            const quantity = parseInt(item.querySelector('.quantity').value);
+
+            // 取得加料選項
+            const toppings = [];
+            let toppingTotal = 0;
+            item.querySelectorAll('.topping:checked').forEach(topping => {
+                toppings.push(topping.name);
+                toppingTotal += parseInt(topping.dataset.price);
+            });
+
+            // 根據選擇的尺寸取得價格
+            const price = size === 'XL' 
+                ? parseInt(item.dataset.priceXl) 
+                : parseInt(item.dataset.priceL);
+
+            const itemTotal = (price + toppingTotal) * quantity;
+            total += itemTotal;
+
+            // 儲存訂單項目
+            const orderItem = {
+                name,
+                size,
+                sweetness,
+                ice,
+                quantity,
+                price,
+                toppings,
+                toppingTotal,
+                itemTotal
+            };
+            orderItems.push(orderItem);
+
+            updateOrderDisplay();
+        }
+
+        function updateOrderDisplay() {
+            orderList.innerHTML = '';
+            total = 0;
+
+            orderItems.forEach((item, index) => {
+                total += item.itemTotal;
+
+                const li = document.createElement('li');
+                let toppingsText = '';
+                if (item.toppings.length > 0) {
+                    toppingsText = ` (加料: ${item.toppings.join('、')})`;
+                }
+                
+                li.innerHTML = `
+                    ${item.name}${toppingsText}（${item.size} / ${item.sweetness} / ${item.ice}）x ${item.quantity}
+                    <span>$${item.itemTotal}</span>
+                    <button class="remove-btn" onclick="removeItem(${index})">×</button>
+                `;
+                orderList.appendChild(li);
+            });
+
+            totalElement.textContent = total;
+        }
+
+        function removeItem(index) {
+            orderItems.splice(index, 1);
+            updateOrderDisplay();
+        }
+
+        function clearOrder() {
+            orderItems = [];
+            updateOrderDisplay();
+        }
+
+        function exportSummary() {
+            localStorage.setItem('orderSummary', JSON.stringify(orderItems));
+            window.location.href = 'summary.html';
+        }
+    </script>
+</body>
+</html>
