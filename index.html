@@ -322,6 +322,10 @@
             orderItems = [];
             updateOrderDisplay();
         }
+        function exportSummary() {
+    localStorage.setItem('orderSummary', JSON.stringify(orderItems));
+    window.location.href = 'summary.html';
+}
     </script>
 </body>
 </html>
