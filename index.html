@@ -104,14 +104,35 @@
             margin-left: 10px;
             cursor: pointer;
         }
+        
+        /* 加料選項樣式 */
+        .toppings {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 8px;
+        }
+        .topping-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .topping-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <h1>點單系統菜單</h1>
-    
+
     <div class="menu-category">
         <h2>現沖系列</h2>
-        
+
         <!-- 仙楂洛神茶 -->
         <div class="item" data-name="仙楂洛神茶" data-price-xl="35" data-price-l="30">
             <div class="item-header">
@@ -152,10 +173,27 @@
                 <label>數量:
                     <input type="number" min="1" value="1" class="quantity">
                 </label>
+                
+                <!-- 加料選項 -->
+                <div class="toppings">
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="粉角" data-price="5"> 粉角 +$5
+                    </label>
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="仙草凍" data-price="5"> 仙草凍 +$5
+                    </label>
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="椰果" data-price="5"> 椰果 +$5
+                    </label>
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="布丁" data-price="15"> 布丁 +$15
+                    </label>
+                </div>
+                
                 <button onclick="addToOrder(this)">加入訂單</button>
             </div>
         </div>
-        
+
         <!-- 日式煎茶 -->
         <div class="item" data-name="日式煎茶" data-price-xl="35" data-price-l="35">
             <div class="item-header">
@@ -196,10 +234,27 @@
                 <label>數量:
                     <input type="number" min="1" value="1" class="quantity">
                 </label>
+                
+                <!-- 加料選項 -->
+                <div class="toppings">
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="粉角" data-price="5"> 粉角 +$5
+                    </label>
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="仙草凍" data-price="5"> 仙草凍 +$5
+                    </label>
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="椰果" data-price="5"> 椰果 +$5
+                    </label>
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="布丁" data-price="15"> 布丁 +$15
+                    </label>
+                </div>
+                
                 <button onclick="addToOrder(this)">加入訂單</button>
             </div>
         </div>
-        
+
         <!-- 玄米綠茶 -->
         <div class="item" data-name="玄米綠茶" data-price-xl="35" data-price-l="35">
             <div class="item-header">
@@ -240,92 +295,9 @@
                 <label>數量:
                     <input type="number" min="1" value="1" class="quantity">
                 </label>
-                <button onclick="addToOrder(this)">加入訂單</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="menu-category">
-        <h2>特調系列</h2>
-
-
-    <div id="order-summary">
-        <h2>訂單明細</h2>
-        <ul id="order-list"></ul>
-        <p>總金額: $<span id="total">0</span></p>
-        <button onclick="clearOrder()" style="background:#95a5a6;">清空訂單</button>
-       <button onclick="exportSummary()">輸出統計明細</button>
-    </div>
-
-    <script>
-        const orderList = document.getElementById('order-list');
-        const totalElement = document.getElementById('total');
-        let total = 0;
-        let orderItems = [];
-
-        function addToOrder(btn) {
-            const item = btn.closest('.item');
-            const name = item.dataset.name;
-            const size = item.querySelector('.size').value;
-            const sweetness = item.querySelector('.sweetness').value;
-            const ice = item.querySelector('.ice').value;
-            const quantity = parseInt(item.querySelector('.quantity').value);
-            
-            // 根據選擇的尺寸取得價格
-            const price = size === 'XL' 
-                ? parseInt(item.dataset.priceXl) 
-                : parseInt(item.dataset.priceL);
-            
-            const itemTotal = price * quantity;
-            total += itemTotal;
-
-            // 儲存訂單項目
-            const orderItem = {
-                name,
-                size,
-                sweetness,
-                ice,
-                quantity,
-                price,
-                itemTotal
-            };
-            orderItems.push(orderItem);
-
-            updateOrderDisplay();
-        }
-
-        function updateOrderDisplay() {
-            orderList.innerHTML = '';
-            total = 0;
-            
-            orderItems.forEach((item, index) => {
-                total += item.itemTotal;
                 
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    ${item.name}（${item.size} / ${item.sweetness} / ${item.ice}）x ${item.quantity}
-                    <span>$${item.itemTotal}</span>
-                    <button class="remove-btn" onclick="removeItem(${index})">×</button>
-                `;
-                orderList.appendChild(li);
-            });
-
-            totalElement.textContent = total;
-        }
-
-        function removeItem(index) {
-            orderItems.splice(index, 1);
-            updateOrderDisplay();
-        }
-
-        function clearOrder() {
-            orderItems = [];
-            updateOrderDisplay();
-        }
-        function exportSummary() {
-    localStorage.setItem('orderSummary', JSON.stringify(orderItems));
-    window.location.href = 'summary.html';
-}
-    </script>
-</body>
-</html>
+                <!-- 加料選項 -->
+                <div class="toppings">
+                    <label class="topping-option">
+                        <input type="checkbox" class="topping" name="粉角" data-price="5"> 粉角 +$5
+                    </label
