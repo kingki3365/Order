@@ -473,4 +473,9 @@
 
         // 確認加入訂單
         document.getElementById('confirmOrder').addEventListener('click', function() {
-            currentItem.quantity = parseInt(document.getElementBy
+    currentItem.quantity = parseInt(document.getElementById('quantityInput').value);
+    // 深拷貝，避免引用
+    orderList.push(JSON.parse(JSON.stringify(currentItem)));
+    document.getElementById('optionsModal').style.display = 'none';
+    updateOrderSummary();
+});
