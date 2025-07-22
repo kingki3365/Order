@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>統計訂單明細</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fefefe;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #e67e22;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background: #f9f9f9;
+            color: #555;
+        }
+        .back-btn {
+            display: block;
+            margin: 30px auto 0;
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .back-btn:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <h1>統計訂單明細</h1>
+    <table id="summary-table">
+        <thead>
+            <tr>
+                <th>品項名稱</th>
+                <th>尺寸</th>
+                <th>甜度</th>
+                <th>冰量</th>
+                <th>數量</th>
+                <th>單價</th>
+                <th>小計</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <button class="back-btn" onclick="goBack()">返回點單頁</button>
+
+    <script>
+        const tbody = document.querySelector('#summary-table tbody');
+        const data = JSON.parse(localStorage.getItem('orderSummary') || '[]');
+
+        if (data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7">目前沒有訂單資料</td></tr>';
+        } else {
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>${item.size}</td>
+                    <td>${item.sweetness}</td>
+                    <td>${item.ice}</td>
+                    <td>${item.quantity}</td>
+                    <td>$${item.price}</td>
+                    <td>$${item.itemTotal}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function goBack() {
+            window.location.href = 'index.html'; // 根據你的主頁檔名修改這裡
+        }
+    </script>
+</body>
+</html>
