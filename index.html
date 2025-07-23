@@ -229,6 +229,8 @@ form {
 <body>
     <h1>點單系統菜單</h1>
 
+<div id="category-nav" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;"></div>
+
 <div style="text-align: center; margin-bottom: 20px;">
     <input type="text" id="searchInput" placeholder="輸入關鍵字，例如：奶茶" style="padding: 10px; font-size: 16px; width: 80%;">
     <button onclick="searchItem()" style="padding: 10px 20px; font-size: 16px; margin-left: 10px;">搜尋</button>
@@ -6341,6 +6343,31 @@ document.addEventListener("DOMContentLoaded", () => {
       wrapper.style.display = wrapper.style.display === 'none' ? '' : 'none';
       toggleBtn.textContent = wrapper.style.display === 'none' ? '＋' : '－';
     });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const categoryNav = document.getElementById("category-nav");
+  const categories = document.querySelectorAll(".menu-category");
+
+  categories.forEach((category, index) => {
+    const h2 = category.querySelector("h2");
+    const title = h2.textContent.trim();
+
+    // 給 h2 加 id
+    const anchorId = "category-" + index;
+    h2.setAttribute("id", anchorId);
+
+    // 建立按鈕
+    const btn = document.createElement("button");
+    btn.textContent = title;
+    btn.className = "nav-btn";
+    btn.addEventListener("click", () => {
+      document.getElementById(anchorId).scrollIntoView({ behavior: "smooth" });
+    });
+
+    categoryNav.appendChild(btn);
   });
 });
 </script>
