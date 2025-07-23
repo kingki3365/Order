@@ -43,23 +43,38 @@ h1 {
 }
 
 .item {
-    padding: 15px 0;
-    border-bottom: 1px dashed #ccc;
-    font-size: 18px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #fff;
+    width: 100%; /* 保證不會自己縮 */
 }
 
-.item:last-child {
-    border-bottom: none;
-}
-
-.item-header {
+.item .controls {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 10px;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-sizing: border-box;
 }
 
+.item .controls label,
+.item .toppings {
+    flex: 1 1 200px; /* 保證每一塊 label 是一致的寬度 */
+    min-width: 150px;
+    box-sizing: border-box;
+}
+
+.item .toppings {
+    flex-basis: 100%; /* toppings 獨立佔一整行 */
+}
+
+.item button {
+    margin-top: 10px;
+}
 .price {
     color: #e74c3c;
     font-weight: bold;
