@@ -161,6 +161,51 @@ textarea {
     font-size: 16px !important;
   }
 }
+
+/* 統一所有元件的盒模型：重要！ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 讓輸入選單在 iOS 上顯示一致 */
+input,
+select,
+textarea,
+button {
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 8px;
+  margin: 5px 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* 移除 iOS 預設樣式差異 */
+input,
+select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 讓容器不會擠壓，強制寬度撐滿 */
+.menu-category,
+form {
+  width: 100%;
+}
+
+/* 避免 iOS Safari 放大文字導致畫面錯位 */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select,
+  input,
+  textarea {
+    font-size: 16px !important;
+  }
+}
 </style>
 </head>
 <body>
