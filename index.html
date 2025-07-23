@@ -5,111 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>點單系統菜單</title>
     <style>
-        body {
-            font-family: 'Microsoft JhengHei', Arial, sans-serif;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 15px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        h1 {
-            color: #e74c3c;
-            text-align: center;
-            padding: 10px;
-            border-bottom: 2px solid #e74c3c;
-        }
-.menu-category > h2 {
-    color: #e74c3c;
-    margin: 0;
-}
+               /* ... 您现有的 CSS 样式 ... */
+
         .menu-category {
             background: white;
             border-radius: 8px;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* 这用于类别之间的间距 */
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+
         .item {
-            padding: 8px 5px;
+            padding: 15px 10px; /* 增加内边距，给商品项内部更多空间 */
             border-bottom: 1px dashed #eee;
+            margin-bottom: 15px; /* 在每个商品项下方添加一些间距，使其不那么紧密 */
+            overflow: hidden; /* 确保商品项内的所有内容都被完全包含，防止溢出 */
         }
         .item:last-child {
-            border-bottom: none;
+            border-bottom: none; /* 移除最后一个商品项的底部边框 */
+            margin-bottom: 0; /* 移除最后一个商品项的底部间距 */
         }
         .item-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .price {
-            color: #e74c3c;
-            font-weight: bold;
+            margin-bottom: 10px; /* 在标题和控制选项之间添加间距 */
         }
         .controls {
-            margin-top: 10px;
+            margin-top: 0; /* 由于 item-header 已经有底部间距，这里可以移除顶部间距 */
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-        select, input[type=number] {
-            margin: 0 5px 0 0;
-            padding: 5px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-        button {
-            padding: 8px 15px;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #c0392b;
-        }
-        #order-summary {
-            margin-top: 30px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            bottom: 20px;
-        }
-        #order-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        #order-list li {
-            padding: 8px 0;
-            border-bottom: 1px dashed #eee;
-            display: flex;
-            justify-content: space-between;
-        }
-        #order-list li span {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        #total {
-            font-weight: bold;
-            color: #e74c3c;
-            font-size: 1.2em;
-        }
-        .remove-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            padding: 2px 5px;
-            margin-left: 10px;
-            cursor: pointer;
+            flex-wrap: wrap; /* 允许控制选项换行 */
+            gap: 10px; /* 控制选项之间的间距 */
+            align-items: flex-start; /* 控制选项在交叉轴上（垂直方向）从顶部对齐 */
+            box-sizing: border-box; /* 确保 padding 和 border 包含在元素的总宽度和高度内，防止布局意外 */
+            padding-bottom: 5px; /* 控制选项底部增加一点内边距 */
         }
         
-        /* 加料選項樣式 */
         .toppings {
             display: flex;
             flex-wrap: wrap;
@@ -118,17 +49,32 @@
             padding: 10px;
             background: #f8f8f8;
             border-radius: 8px;
+            width: 100%; /* **关键改动：强制加料选项占据其父容器（controls）的全部宽度** */
+            box-sizing: border-box; /* 确保 padding 和 border 包含在元素的总宽度内 */
         }
-        .topping-option {
-            display: flex;
+
+        /* 调整 controls 内的 label 样式，确保间距和对齐一致 */
+        .controls label {
+            display: flex; /* 使用 flex 使 label 文本和其内部的 input/select 对齐 */
             align-items: center;
-            gap: 5px;
+            gap: 5px; /* label 文本和 input/select 之间的间距 */
+            margin-bottom: 5px; /* 如果 label 换行，提供一点底部间距 */
         }
-        .topping-option input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
+
+        /* 调整 select 和 input 的样式，使其视觉上更统一 */
+        select, input[type=number] {
+            margin: 0; /* 移除之前可能存在的 margin，因为父级 flex 容器的 gap 已经处理了间距 */
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            min-width: 80px; /* 给 select 元素一个最小宽度，保持一致性 */
         }
+
+        /* 按钮对齐 */
+        .controls button {
+            margin-top: 5px; /* 给按钮一点顶部间距，如果它换行了 */
+        }
+
     </style>
 </head>
 <body>
