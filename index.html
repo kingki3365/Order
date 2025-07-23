@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>點單系統菜單</title>
     <style>
+#category-nav {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  padding: 10px 0;
+  z-index: 999;
+  border-bottom: 1px solid #ccc;
+}
+
+#category-nav .nav-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#category-nav .nav-btn:hover {
+  background-color: #c0392b;
+}
 .toggle-category {
   margin-left: 10px;
   background-color: #e74c3c;
