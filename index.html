@@ -145,6 +145,22 @@ button:hover {
     font-size: 28px;
     font-weight: bold;
 }
+
+/* 防止 iOS 自動放大表單文字 */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+/* 針對 iOS Safari 強制設定輸入框樣式不會撐大 */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select,
+  input,
+  textarea {
+    font-size: 16px !important;
+  }
+}
 </style>
 </head>
 <body>
