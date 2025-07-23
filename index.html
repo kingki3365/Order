@@ -247,12 +247,41 @@ form {
     font-size: 16px !important;
   }
 }
+.category-nav-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px 0;
+  gap: 10px;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  background-color: #f9f9f9;
+  z-index: 999;
+  border-bottom: 1px solid #ddd;
+  scroll-behavior: smooth;
+}
+
+.category-nav-container button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.category-nav-container button:hover {
+  background-color: #c0392b;
+}
 </style>
 </head>
 <body>
     <h1>點單系統菜單</h1>
 
-<div id="category-nav" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;"></div>
+<div id="category-nav" class="category-nav-container"></div>
 
 <div style="text-align: center; margin-bottom: 20px;">
     <input type="text" id="searchInput" placeholder="輸入關鍵字，例如：奶茶" style="padding: 10px; font-size: 16px; width: 80%;">
@@ -6384,30 +6413,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const categoryNav = document.getElementById("category-nav");
-  const categories = document.querySelectorAll(".menu-category");
+const categoryNav = document.getElementById("category-nav");
+const categories = document.querySelectorAll(".menu-category h2");
 
-  categories.forEach((category, index) => {
-    const h2 = category.querySelector("h2");
-    const title = h2.textContent.trim();
-
-    // 給 h2 加 id
-    const anchorId = "category-" + index;
-    h2.setAttribute("id", anchorId);
-
-    // 建立按鈕
-    const btn = document.createElement("button");
-    btn.textContent = title;
-    btn.className = "nav-btn";
-    btn.addEventListener("click", () => {
-      document.getElementById(anchorId).scrollIntoView({ behavior: "smooth" });
-    });
-
-    categoryNav.appendChild(btn);
+categories.forEach((h2, index) => {
+  const btn = document.createElement("button");
+  btn.textContent = h2.textContent;
+  btn.addEventListener("click", () => {
+    h2.scrollIntoView({ behavior: "smooth" });
   });
+  categoryNav.appendChild(btn);
 });
-</script>
 </body>
 </html>
