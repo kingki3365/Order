@@ -6412,6 +6412,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+</script>
+<script>
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function scrollToBottom() {
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
+</script>
 <script>
 const categoryNav = document.getElementById("category-nav");
 const categories = document.querySelectorAll(".menu-category h2");
@@ -6425,7 +6435,11 @@ categories.forEach((h2, index) => {
   categoryNav.appendChild(btn);
 });
 </script>
-
+<!-- 🔼🔽 回頂部 / 到底部 按鈕 -->
+<div id="scroll-buttons">
+  <button onclick="scrollToTop()">🔺 到頂部</button>
+  <button onclick="scrollToBottom()">🔻 到底部</button>
+</div>
 </body>
 </html>
 </body>
