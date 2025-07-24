@@ -6325,12 +6325,15 @@ form {
 
         function addToOrder(btn) {
     const item = btn.closest('.item');
-    const name = item.querySelector('.item-header span')?.textContent.trim() || '未命名';
+
+    // 取值
+    const name = item.querySelector('.item-header span').textContent.trim();
     const size = item.querySelector('.size').value;
     const sweetness = item.querySelector('.sweetness').value;
     const ice = item.querySelector('.ice').value;
     const quantity = parseInt(item.querySelector('.quantity').value);
 
+    // 加料計算
     const toppings = [];
     let toppingTotal = 0;
     item.querySelectorAll('.topping:checked').forEach(topping => {
@@ -6338,13 +6341,15 @@ form {
         toppingTotal += parseInt(topping.dataset.price);
     });
 
+    // 取得價格
     const price = size === 'XL'
         ? parseInt(item.dataset.priceXl)
         : parseInt(item.dataset.priceL);
 
+    // 計算總價
     const itemTotal = (price + toppingTotal) * quantity;
-    total += itemTotal;
 
+    // 將訂單物件加入全局訂單陣列 orderItems
     const orderItem = {
         name,
         size,
@@ -6357,11 +6362,20 @@ form {
         itemTotal
     };
     orderItems.push(orderItem);
+
+    // 更新畫面（假設你有寫這函式）
     updateOrderDisplay();
 
-    // ✅ 加入完整提醒訊息
+    // 送出訂單後重置回預設
+    item.querySelector('.size').value = 'XL';            // 預設 XL
+    item.querySelector('.sweetness').value = '正常甜';    // 預設 正常甜
+    item.querySelector('.ice').value = '正常冰';          // 預設 正常冰
+    item.querySelector('.quantity').value = 1;            // 預設 1
+    item.querySelectorAll('.topping').forEach(t => t.checked = false); // 取消勾選全部加料
+
+    // 提醒訊息
     alert(`已加入訂單：${name}（${size} / ${sweetness} / ${ice}）x${quantity}，含加料總價 $${itemTotal}\n\n📌 提醒：別忘了點完到底部做輸出統計，並且截圖給帥哥老闆喔！`);
-}
+        }
 
             
         function updateOrderDisplay() {
