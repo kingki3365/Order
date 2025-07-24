@@ -6358,7 +6358,9 @@ form {
     };
     orderItems.push(orderItem);
     updateOrderDisplay();
-    alert(`已加入訂單：${name}（${size} / ${sweetness} / ${ice}）x${quantity}，含加料總價 $${itemTotal}`);
+
+    // ✅ 加入完整提醒訊息
+    alert(`已加入訂單：${name}（${size} / ${sweetness} / ${ice}）x${quantity}，含加料總價 $${itemTotal}\n\n📌 提醒：別忘了點完到底部做輸出統計，並且截圖給帥哥老闆喔！`);
 }
 
             
