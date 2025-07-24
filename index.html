@@ -259,14 +259,20 @@ button {
   max-width: 100%;
 }
 
-/* 移除 iOS 預設樣式差異 */
-input,
+/* 移除 iOS 預設樣式差異，但保留 checkbox 外觀 */
+input:not([type="checkbox"]),
 select {
   -webkit-appearance: none;
   appearance: none;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+/* 確保 checkbox 外觀正常 */
+input[type="checkbox"] {
+  -webkit-appearance: checkbox;
+  appearance: checkbox;
 }
 
 /* 讓容器不會擠壓，強制寬度撐滿 */
