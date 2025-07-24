@@ -6306,12 +6306,41 @@ form {
         let orderItems = [];
 
         function addToOrder(btn) {
-            const item = btn.closest('.item');
-            const name = item.dataset.name;
-            const size = item.querySelector('.size').value;
-            const sweetness = item.querySelector('.sweetness').value;
-            const ice = item.querySelector('.ice').value;
-            const quantity = parseInt(item.querySelector('.quantity').value);
+    const item = btn.closest('.item');
+    const name = item.querySelector('.item-header span')?.textContent.trim() || '未命名';
+    const size = item.querySelector('.size').value;
+    const sweetness = item.querySelector('.sweetness').value;
+    const ice = item.querySelector('.ice').value;
+    const quantity = parseInt(item.querySelector('.quantity').value);
+
+    const toppings = [];
+    let toppingTotal = 0;
+    item.querySelectorAll('.topping:checked').forEach(topping => {
+        toppings.push(topping.name);
+        toppingTotal += parseInt(topping.dataset.price);
+    });
+
+    const price = size === 'XL'
+        ? parseInt(item.dataset.priceXl)
+        : parseInt(item.dataset.priceL);
+
+    const itemTotal = (price + toppingTotal) * quantity;
+    total += itemTotal;
+
+    const orderItem = {
+        name,
+        size,
+        sweetness,
+        ice,
+        quantity,
+        price,
+        toppings,
+        toppingTotal,
+        itemTotal
+    };
+    orderItems.push(orderItem);
+    updateOrderDisplay();
+}
 
             // 取得加料選項
             const toppings = [];
