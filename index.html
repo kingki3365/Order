@@ -6342,39 +6342,7 @@ form {
     updateOrderDisplay();
 }
 
-            // 取得加料選項
-            const toppings = [];
-            let toppingTotal = 0;
-            item.querySelectorAll('.topping:checked').forEach(topping => {
-                toppings.push(topping.name);
-                toppingTotal += parseInt(topping.dataset.price);
-            });
-
-            // 根據選擇的尺寸取得價格
-            const price = size === 'XL' 
-                ? parseInt(item.dataset.priceXl) 
-                : parseInt(item.dataset.priceL);
-
-            const itemTotal = (price + toppingTotal) * quantity;
-            total += itemTotal;
-
-            // 儲存訂單項目
-            const orderItem = {
-                name,
-                size,
-                sweetness,
-                ice,
-                quantity,
-                price,
-                toppings,
-                toppingTotal,
-                itemTotal
-            };
-            orderItems.push(orderItem);
-
-            updateOrderDisplay();
-        }
-
+            
         function updateOrderDisplay() {
             orderList.innerHTML = '';
             total = 0;
