@@ -154,17 +154,7 @@
                 tbody.appendChild(tr);
             });
 
-            // 添加總結行
-            const summaryRow = document.createElement('tr');
-            summaryRow.className = 'summary-row';
-            summaryRow.innerHTML = `
-                <td colspan="5"></td>
-                <td>飲品: $${drinksTotal}</td>
-                <td>加料: $${toppingsTotal}</td>
-                <td>總計: $${grandTotal}</td>
-            `;
-            tbody.appendChild(summaryRow);
-
+            
             // 更新總計顯示
             document.getElementById('drinks-total').textContent = drinksTotal;
             document.getElementById('toppings-total').textContent = toppingsTotal;
